@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'search', to: 'search#index'
   
   resources :users, only: %i[new create show edit update]
-  resources :hosts, only: %i[show]
+  resources :personalities
   resources :programs
   resources :posts
   # Defines the root path route ("/")

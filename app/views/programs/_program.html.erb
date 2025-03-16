@@ -5,13 +5,15 @@
     </div>
     <div class="mb-4 text-center">
       パーソナリティ :
-      <%= link_to program.host_name, host_path(program.host_id), class: "text-blue-500 hover:underline" %>
+        <% program.personalities.each do |personality| %>
+          <%= link_to personality.name, personality_path(personality.id), class: "text-blue-500 hover:underline" %>
+        <% end %>
     </div>
     <div class="mb-4 text-center">
       <%= "放送局 : #{program.channel}" %>
     </div>
     <div class="mb-2 text-center">
-      <%= "放送日時 : #{program.day_of_week} #{program.start_time.strftime("%H:%M")} 〜 #{program.end_time.strftime("%H:%M")}" %>
+      <%= "放送日時 : #{program.day} #{formatted_time(program.start_time)} 〜 #{formatted_time(program.end_time, is_end_time: true)}" %>
     </div>
   </div>
 </div>

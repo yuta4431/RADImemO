@@ -10,48 +10,50 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_10_03_093335) do
+ActiveRecord::Schema[7.0].define(version: 2025_03_03_121731) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "hosts", force: :cascade do |t|
-    t.string "name", null: false
+  create_table "personalities", force: :cascade do |t|
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_hosts_on_name", unique: true
-  end
-
-  create_table "hosts_programs", force: :cascade do |t|
-    t.bigint "host_id", null: false
-    t.bigint "program_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["host_id"], name: "index_hosts_programs_on_host_id"
-    t.index ["program_id"], name: "index_hosts_programs_on_program_id"
+    t.index ["name"], name: "index_personalities_on_name", unique: true
   end
 
   create_table "posts", force: :cascade do |t|
-    t.string "title", null: false
-    t.date "broadcast_date", null: false
+    t.bigint "program_id", null: false
+    t.datetime "broadcast_date"
     t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.integer "program_id"
+    t.bigint "user_id"
+    t.index ["program_id"], name: "index_posts_on_program_id"
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "program_personalities", force: :cascade do |t|
+    t.bigint "program_id", null: false
+    t.bigint "personality_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["personality_id"], name: "index_program_personalities_on_personality_id"
+    t.index ["program_id", "personality_id"], name: "index_program_personalities_on_program_id_and_personality_id", unique: true
+    t.index ["program_id"], name: "index_program_personalities_on_program_id"
   end
 
   create_table "programs", force: :cascade do |t|
     t.string "title", null: false
-    t.string "host_name"
     t.string "channel"
-    t.string "day_of_week", null: false
+    t.string "day", null: false
     t.time "start_time"
     t.time "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "host_id"
+    t.string "personality_name"
+    t.bigint "user_id"
     t.index ["title", "channel"], name: "index_programs_on_title_and_channel", unique: true
+    t.index ["user_id"], name: "index_programs_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -63,8 +65,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_03_093335) do
     t.index ["name"], name: "index_users_on_name", unique: true
   end
 
-  add_foreign_key "hosts_programs", "hosts"
-  add_foreign_key "hosts_programs", "programs"
   add_foreign_key "posts", "programs"
   add_foreign_key "posts", "users"
+  add_foreign_key "program_personalities", "personalities"
+  add_foreign_key "program_personalities", "programs"
+  add_foreign_key "programs", "users"
 end
