@@ -1,6 +1,8 @@
-<%= form_with url: search_path, method: :get, local: true do |f| %>
-  <div style="display: flex; align-items: center;">
-    <%= f.search_field :q, placeholder: "番組/パーソナリティ/投稿内容を検索", style: "flex: 1; min-width: 400px;" %>
-    <%= f.submit "検索", style: "margin-left: 10px; background-color: #808080; color: white; border: none; padding: 10px 15px; cursor: pointer;" %>
-  </div>
+<% if logged_in? %>
+  <%= form_with url: search_path, method: :get, local: true do |f| %>
+    <div style="display: flex; align-items: center;">
+      <%= f.search_field :q, placeholder: "番組/パーソナリティ/投稿内容を検索", style: "flex: 1; min-width: 400px;" %>
+      <%= f.submit "検索", style: "margin-left: 10px; background-color: #808080; color: white; border: none; padding: 10px 15px; cursor: pointer;" %>
+    </div>
+  <% end %>
 <% end %>

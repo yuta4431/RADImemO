@@ -1,7 +1,7 @@
 <div class="card bg-white shadow-lg rounded-lg overflow-hidden p-8 w-full">
   <div class="card-body">
     <h2 class="text-xl font-bold mb-4 text-center">
-      <%= link_to post.title, post_path(post), class: "text-blue-500 hover:underline" %>
+      <%= link_to post.program.title, post_path(post), class: "text-blue-500 hover:underline" %>
     </h2>
     <div class="mb-4">
       <%= "放送日時 : #{l(post.broadcast_date, format: '%Y年%m月%d日 (%a)')}" %>

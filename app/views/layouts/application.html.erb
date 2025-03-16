@@ -33,7 +33,7 @@
       padding: 30px 0;
       z-index: 1000;
     }
-
+    
     nav ul {
       list-style-type: none;
       margin: 0;
@@ -49,6 +49,8 @@
     nav a {
       color: white;
       text-decoration: none;
+      padding-top: 10px; /* 上側の余白 */
+      display: inline-block;
     }
 
     nav a:hover {
@@ -64,7 +66,7 @@
       flex-direction: column;
       align-items: center;
       gap: 20px;
-      margin-top: 80px;
+      margin-top: 100px;
     }
 
     footer {
@@ -82,11 +84,12 @@
     <header>
       <nav>
         <ul>
-          <li><%= link_to '新規投稿', new_post_path %></li>
           <li><%= link_to '投稿一覧', posts_path %></li>
+          <li><%= link_to '新規投稿', new_post_path %></li>
           <li><%= link_to '番組登録', new_program_path %></li>
           <li><%= link_to '番組一覧', programs_path %></li>
           <li><%= link_to 'ログアウト', logout_path, data: { turbo_method: :delete, turbo_confirm: 'ログアウトしますか？' } %></li>
+          <li></li>
         </ul>
       </nav>
     </header>
@@ -102,6 +105,9 @@
   <% end %>
 
   <main>
+    <div style="margin-bottom: 20px;">
+      <%= render 'shared/search_form', q: @q %>
+    </div>
     <%= render 'layouts/flash_message' %>
     <%= yield %>
   </main>

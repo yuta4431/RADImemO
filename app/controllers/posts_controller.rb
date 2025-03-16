@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
+  before_action :correct_user, only: %i[edit update destroy]
   
   def index
     @q = Post.ransack(params[:q])
@@ -41,10 +42,16 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :broadcast_date, :content)
+    params.require(:post).permit(:program_id, :broadcast_date, :content, :user_id)
   end
 
   def set_post
     @post = Post.find(params[:id])
+  end
+
+  def correct_user
+    @post = Post.find(params[:id])
+    @user = @post.user
+    redirect_to posts_path, alert: "アクセス権限がありません" if @user != current_user
   end
 end

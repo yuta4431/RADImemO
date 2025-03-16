@@ -1,7 +1,7 @@
 <div class="card bg-white shadow-lg rounded-lg overflow-hidden p-8">
   <div class="card-body">
     <div class="card-title text-2xl font-bold mb-8 text-center">
-      <%= @post.title %>
+      <%= @post.program.title %>
     </div>
     <div class="mb-4 text-center">
       <%= "放送日時 : #{l(@post.broadcast_date, format: '%Y年%m月%d日 (%a)')}" %>
@@ -10,8 +10,10 @@
       <%= "放送内容・感想など : #{@post.content}" %>
     </div>
     <div class="mb-2 text-center">
-      <%= link_to '編集', edit_post_path(@post), class: 'btn text-white', style: 'background-color: #34c759; border-color: #34c759;' %>
-      <%= link_to '削除', post_path(@post), class: 'btn text-white', style: 'background-color: #ff3b31; border-color: #ff3b31;', data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
+      <% if @post.user == current_user %>
+        <%= link_to '編集', edit_post_path(@post), class: 'btn text-white', style: 'background-color: #34c759; border-color: #34c759;' %>
+        <%= link_to '削除', post_path(@post), class: 'btn text-white', style: 'background-color: #ff3b31; border-color: #ff3b31;', data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
+      <% end %>
     </div>
   </div>
 </div>

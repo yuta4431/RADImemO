@@ -1,10 +1,10 @@
-<h1 class="font-bold mb-6 text-center" style="font-size: 2.5rem;">番組メモ一覧</h1>
+<h1 class="font-bold mb-6 text-center" style="font-size: 2.5rem;">投稿一覧</h1>
 
 <% if @posts.present? %>
   <%= render @posts %>
 <% else %>
   <p class="text-center text-xl mt-6">番組メモはありません</p>
   <div class="text-center mt-4">
-    <%= link_to '番組メモ作成', new_post_path, class: "btn btn-primary" %>
+    <%= link_to '番組メモ作成', new_post_path, class: "btn text-white", style: 'background-color: #04a5e9; border-color: #04a5e9;' %>
   </div>
 <% end %>

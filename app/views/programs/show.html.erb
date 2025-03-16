@@ -2,17 +2,20 @@
 
 <div class="card bg-white shadow-lg rounded-lg overflow-hidden p-8">
   <div class="card-body">
-    <div class="card-title text-2xl font-bold mb-8 text-center">
-      <%= @program.title %>
+    <div class="card-title text-2xl font-bold mb-8 text-center w-full">
+      <div class="block w-full"> <%= @program.title %> </div>
     </div>
-    <div class="text-gray-600 mb-4 text-center">
+    <div class="text-gray-600 mb-4 text-center w-full">
       パーソナリティ : 
-      <%= link_to @program.host_name, host_path(@program.host_id), class: "text-blue-500 hover:underline" %>
+      <% @program.personalities.each do |personality| %>
+        <%= link_to personality.name, personality_path(personality.id), class: "text-blue-500 hover:underline" %>
+      <% end %>
     </div>
     <div class="text-gray-600 mb-8 text-center">
-      <%= "放送日時 : #{@program.day_of_week} #{@program.start_time.strftime("%H:%M")} 〜 #{@program.end_time.strftime("%H:%M")}" %>
+      <%= "放送日時 : #{@program.day} #{@program.start_time.strftime("%H:%M")} 〜 #{@program.end_time.strftime("%H:%M")}" %>
     </div>
     <div class="mb-2 text-center">
+      <%= link_to '投稿', new_post_path, class: 'btn text-white', style: 'background-color: #04a5e9; border-color: #04a5e9;' %>
       <%= link_to '編集', edit_program_path(@program), class: 'btn text-white', style: 'background-color: #34c759; border-color: #34c759;' %>
       <%= link_to '削除', program_path(@program), class: 'btn text-white', style: 'background-color: #ff3b31; border-color: #ff3b31;', data: { turbo_method: :delete, turbo_confirm: '本当に削除しますか？' } %>
     </div>
