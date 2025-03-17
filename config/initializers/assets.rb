@@ -10,4 +10,4 @@ Rails.application.config.assets.version = "1.0"
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
 # config/initializers/assets.rb
-Rails.application.config.assets.precompile += %w( application.sass.scss )
+Rails.application.config.assets.precompile += %w( application.sass.scss tailwind.css )
